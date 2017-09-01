@@ -23,15 +23,18 @@ let Hangman = (function(){ //this part is the iife part (google iife)
    }){
        Hangman.board = document.querySelector(config.boardSelector);
        Hangman.startButton = Hangman.board.querySelector(".start-game-button");
-       Hangman.startButton.addEventListener('click',()=>{
-           HangmanWordService.getGuessWord().then((word)=>{
-               console.log(word);
-           });
-
-        
-       });
+       Hangman.startButton.addEventListener('click', Hangman.startGameButtonClicked);
    }
-   
+   Hangman.startGameButtonClicked = function(){
+    HangmanWordService.getGuessWord().then(Hangman.start);
+
+   }
+   Hangman.start = function(wordToGuess){
+       Hangman.wordToGuess = wordToGuess.split("");
+       Hangman.mask = Hangman.wordToGuess.map(()=>"*");
+       Hangman.guesses = 0;
+       console.log(Hangman.wordToGuess,Hangman.mask);
+   }
    
     return Hangman;
 
