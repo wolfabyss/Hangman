@@ -1,4 +1,19 @@
-let hangman = (function(){ //this part is the iife part (google iife)
+
+let HangmanWordService = (function(){
+    let WordService = {};
+    WordService.getGuessWord = function(){
+        let guessWordPromise = new Promise((resolve,reject)=>{
+            let wordToGuess = document.querySelector("input[name='word']").value;
+            resolve(wordToGuess);
+        });
+        return guessWordPromise;
+    }
+    return WordService;
+}());
+
+
+let Hangman = (function(){ //this part is the iife part (google iife)
+
     let Hangman = {};
                             // iife
    
@@ -9,8 +24,12 @@ let hangman = (function(){ //this part is the iife part (google iife)
        Hangman.board = document.querySelector(config.boardSelector);
        Hangman.startButton = Hangman.board.querySelector(".start-game-button");
        Hangman.startButton.addEventListener('click',()=>{
-           console.log("click called");
-       })
+           HangmanWordService.getGuessWord().then((word)=>{
+               console.log(word);
+           });
+
+        
+       });
    }
    
    
