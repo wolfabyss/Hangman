@@ -55,12 +55,17 @@ Hangman.guessButtonCallback = function(event){
     let button = event.target;
     let guess = button.dataset.value;
     if(!guess){return};
-    button.disabled = true;
-    button.classList.add('guessed');
     let correctGuess = Hangman.checkGuess(guess);
     Hangman.updateMask();
     Hangman.updateGuesses(correctGuess);
+    Hangman.updateButton(button, correctGuess);
+
 }   
+Hangman.updateButton = function(button,correctGuess){
+    button.disabled = true;
+    button.classList.add('guessed');
+    button.classList.add((correctGuess)? 'right' : 'wrong');
+}
 Hangman.updateGuesses = function(correctGuess){
     if(!correctGuess){
         Hangman.guesses += 1;
